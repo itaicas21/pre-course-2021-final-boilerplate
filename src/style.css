@@ -1,0 +1,13 @@
+/* Trying to mix&match similar fonts, tried to define font for priority menu but its not a supported feature for selection drop-down menus. NOTE TO SELF-Try to implement */
+#control {
+  font-family: "Dosis", sans-serif;
+  font-size: 2em;
+}
+button {
+  font-family: inherit;
+  font-size: 0.5em;
+}
+#view {
+  font-family: "Nunito", sans-serif;
+  font-size: 0.5em;
+}

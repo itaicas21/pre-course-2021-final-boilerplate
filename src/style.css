@@ -15,3 +15,9 @@ button {
 div {
   display: inline;
 }
+.todo-priority {
+  padding-right: 1em;
+}
+.todo-created-at {
+  padding-right: 1em;
+}

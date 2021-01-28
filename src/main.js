@@ -16,3 +16,22 @@ control.addEventListener('click', event => {
     }
 });
 
+// Creating an add task function for code modularity
+function addTask(task,priority) {
+    const todoContainer = document.createElement('div');
+    todoContainer.classList.add('todo-container');
+    addDiv('todo-priority', priority,todoContainer);
+    addDiv('todo-created-at', Date(),todoContainer);
+    addDiv('todo-text', task,todoContainer);
+    const newLine = document.createElement('span');
+    newLine.innerHTML = '<br>';
+    todoContainer.appendChild(newLine);
+    view.firstElementChild.appendChild(todoContainer);
+}
+//creating a function to modulate sections added to a task 
+function addDiv(name, innerContent,parentDiv) {
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add(name);
+    todoDiv.innerHTML = innerContent;
+    parentDiv.appendChild(todoDiv);
+}

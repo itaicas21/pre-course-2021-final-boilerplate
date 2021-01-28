@@ -11,3 +11,7 @@ button {
   font-family: "Nunito", sans-serif;
   font-size: 0.5em;
 }
+/*divisions form one, complete task inline*/
+div {
+  display: inline;
+}

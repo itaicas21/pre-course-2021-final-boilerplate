@@ -4,6 +4,8 @@ const view = document.querySelector('#view');
 const input = document.querySelector('#text-input');
 const count = document.querySelector('#counter');
 let counter = 0;
+//
+let priorityList = null;
 // "Listening" for click on button
 control.addEventListener('click', event => {
     if (event.target.id === 'add-button') {
@@ -15,16 +17,29 @@ control.addEventListener('click', event => {
         // Part of modulation technique (thanks nir)
         // "Call" a function in practice, and than create 
         addTask(task, priority.value);
+
         //counter increases when task is added, need to call count display again when task is removed
         counter++;
         countDisplay(counter);
+        //
+        priorityList = document.querySelectorAll('.todo-priority');
+    }
+    if (event.target.id === 'sort-button'&& (priorityList !== null||priorityList !== undefined)) {
+        for (let i = 5; i > 0; i--) {
+            priorityList.forEach(item => {
+                if (item.innerHTML == i) {
+                    view.firstElementChild.appendChild(item.closest('li'));
+                }
+            }); 
+        }
+        
     }
 });
 
 // Creating an add task function for code modularity
 function addTask(task, priority) {
     //list item to append to ul
-    const listItem = document.createElement('li');
+    const item = document.createElement('li');
     //formatDate is declared as let to reduce unnecessary code variables and lines. RETURN HERE AND MODULATE
     let formatDate = new Date();
     formatDate = convertJSONDate(formatDate.toJSON());
@@ -37,8 +52,8 @@ function addTask(task, priority) {
     addDiv('todo-text', task, todoContainer);
     
     // append task to list in view
-    view.firstElementChild.appendChild(listItem);
-    listItem.appendChild(todoContainer);
+    view.firstElementChild.appendChild(item);
+    item.appendChild(todoContainer);
 }
 //creating a function to modulate sections added to a task 
 function addDiv(name, innerContent,parentDiv) {

@@ -1,33 +1,14 @@
-async function main() {
-
-    const API_KEY = '601684a00ba5ca5799d18446'; // Assign this variable to your JSONBIN.io API key if you choose to use it.
-    
-    // Gets data from persistent storage by the given key and returns it
-    async function getPersistent(key) {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${key}/latest`);
-        const data = await response.json()
-        return data.record["my-todo"];
-    }
-
-    const data = await getPersistent(API_KEY);
-    
-    // Saves the given data into persistent storage by the given key.
-    // Returns 'true' on success.
-    async function setPersistent(key, savedList) {
-        await fetch(`https://api.jsonbin.io/v3/b/${key}`, { method: "put", headers: { "Content-Type": "application/json",}, body: JSON.stringify(savedList)})
-      }
-    
     // Initalizing variables for later use
     const control = document.querySelector('#control');
     const view = document.querySelector('#view');
     const input = document.querySelector('#text-input');
     const count = document.querySelector('#counter');
-    const countText = document.querySelector('#counter-text');
     let counter = 0;
     //save properties in my todo property
     let savedList = {
         "my-todo": []
     }
+    
     //
     let priorityList = null;
     // "Listening" for click on button
@@ -41,15 +22,13 @@ async function main() {
             // Part of modulation technique (thanks nir)
             // "Call" a function in practice, and than create 
             addTask(task, priority.value);
-            //counter increases when task is added, need to call count display again when task is remove
+            //counter increases when task is added, need to call count display again when task is removed
             counter++;
             countDisplay(counter);
             //updates priority list every added task
             priorityList = document.querySelectorAll('.todo-priority');
             console.log(savedList);
-            //Remember to add localStorage option
-            //
-            await setPersistent(API_KEY, savedList);
+            setPersistent(API_KEY, savedList);
         }
         if (event.target.id === 'sort-button') {
             sortPriorityList(priorityList);
@@ -59,32 +38,24 @@ async function main() {
             const listItem = event.target.closest('li')
             //
             savedList["my-todo"].splice(listItem.id, 1);
-            //
-            await setPersistent(API_KEY, savedList);
             listItem.remove();
             counter--;
             countDisplay(counter);
-            
         }
     });
 
     // Creating an add task function for code modularity
-    function addTask(task, priority,givenDate) {
+    function addTask(task, priority) {
         //list item to append to ul
         const item = document.createElement('li');
         //
         item.id = counter;
         //formatDate is declared as let to reduce unnecessary code variables and lines. RETURN HERE AND MODULATE
-        let formatDate;
-        if (givenDate) {
-             formatDate = new Date(givenDate);
-        } else {
-            formatDate = new Date();
-        }
+        let formatDate = new Date();
         // create task container
         const todoContainer = document.createElement('div');
         todoContainer.classList.add('todo-container');
-        //Enter comments hereabout code below
+        //
         savedList['my-todo'][counter] = {};
         //
         addElement('todo-priority', priority, todoContainer, 'div');
@@ -129,16 +100,11 @@ async function main() {
     //simple switch case for counter
     function countDisplay(counter) {
         switch (counter) {
-            case 0: count.innerHTML = 0;
-                countText.innerHTML= 'Zen Mode'
+            case 0: count.innerHTML = `Zen Mode`;
                 break;
-            case 1: count.innerHTML = counter;
-            countText.innerHTML= `more headache...`;
+            case 1: count.innerHTML = `${counter} more headache...`;
                 break;
-            default: {
-                count.innerHTML = counter;
-                countText.innerHTML= `more headaches...`;
-            }
+            default: count.innerHTML = `${counter} more headaches...`;
         }
     }
     // sorts a priority list from 1-5
@@ -159,14 +125,7 @@ async function main() {
         savedList["my-todo"][counter][propertyName] = propertyValue;
     }
 
-    if (data) {
-        savedList["my-todo"]=data ;
-        for (let task of data) {
-            addTask(task["todo-text"], task["todo-priority"], task["todo-created-at"]);
-            counter++;
-        }
-        countDisplay(counter);
-    }
-    console.log(savedList);
-} 
-main();
+
+    
+
+  

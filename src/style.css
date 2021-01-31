@@ -7,14 +7,15 @@ button {
   font-family: inherit;
   font-size: 0.5em;
 }
-#view {
-  font-family: "Nunito", sans-serif;
-  font-size: 0.5em;
-}
 /*divisions form one, complete task inline*/
 div {
   display: inline;
 }
+#view {
+  font-family: "Nunito", sans-serif;
+  font-size: 0.5em;
+}
+
 .todo-priority {
   padding-right: 1em;
 }
@@ -22,5 +23,8 @@ div {
   padding-right: 1em;
 }
 .todo-text {
+  padding-right: 1em;
+}
+#todo-id {
   padding-right: 1em;
 }

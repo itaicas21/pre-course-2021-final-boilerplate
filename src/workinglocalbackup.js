@@ -9,7 +9,7 @@ let savedList = {
     "my-todo":[{},{}]
 }
 let savedList1 = {
-    "my-todo":[]
+    "my-todo":[{},{}]
 }
 //
 let priorityList = null;
@@ -38,6 +38,7 @@ document.addEventListener('click', event => {
         counter--;
         countDisplay(counter);
     }
+    
 });
 
 // Creating an add task function for code modularity
@@ -46,6 +47,7 @@ function addTask(task, priority) {
     const item = document.createElement('li');
     //formatDate is declared as let to reduce unnecessary code variables and lines. RETURN HERE AND MODULATE
     let formatDate = new Date();
+    formatDate = convertJSONDate(formatDate.toJSON());
     // create task container
     const todoContainer = document.createElement('div');
     todoContainer.classList.add('todo-container');
@@ -65,10 +67,6 @@ function addElement(name, innerContent,parentDiv,element) {
         todoDiv.id = name;
     } else {
         todoDiv.classList.add(name);
-    }
-    if (name === 'todo-created-at') {
-
-        innerContent = convertJSONDate(innerContent.toJSON());
     }
     todoDiv.innerHTML = `${innerContent}`;
     parentDiv.appendChild(todoDiv);
@@ -107,7 +105,4 @@ function sortPriorityList(list) {
         }
         
     }
-}
-function addToSavedList(counter) {
-    
 }

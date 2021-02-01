@@ -29,9 +29,20 @@ li {
   display: inline;
   padding-right: 1em;
 }
+#counter-section {
+  font-size: 5vh;
+  position: relative;
+  bottom: 6vh;
+  right: 6vw;
+}
+#sort-button {
+  position: relative;
+  bottom: 13.7vh;
+  left: 23vh;
+}
 #delete-button {
-  background-color: #facd89;
-  height: 4vh;
+  background-color: inherit;
+  height: 2.7vh;
 }
 #title {
   font-size: 8.4vh;
@@ -49,7 +60,7 @@ li {
   font-weight: 500;
 }
 #text-input {
-  background-color: #facd89;
+  background-color: inherit;
   border: #facd89;
   font-family: inherit;
 }

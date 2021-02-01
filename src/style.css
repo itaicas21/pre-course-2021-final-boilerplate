@@ -2,26 +2,54 @@
 body {
   font-family: "Dosis", sans-serif;
   font-size: 2em;
+  background-color: peru;
+  background-image: url(./assets/—Pngtree—paper\ clip\ decorative\ yellow\ note_4615562.png);
+  background-size: 110vh;
+  background-position-x: center;
+  background-repeat: no-repeat;
 }
 button {
   font-family: inherit;
   font-size: 0.5em;
 }
+li {
+  list-style-type: none;
+}
 /*divisions form one, complete task inline*/
-div {
-  display: inline;
-}
-#view {
-  font-family: "Nunito", sans-serif;
-  font-size: 0.5em;
-}
 
 .todo-priority {
-  padding-right: 1em;
-}
-.todo-created-at {
+  display: inline;
   padding-right: 1em;
 }
 .todo-text {
+  display: inline;
   padding-right: 1em;
+}
+.todo-created-at {
+  display: inline;
+  padding-right: 1em;
+}
+#delete-button {
+  background-color: #facd89;
+  height: 4vh;
+}
+#title {
+  font-size: 8.4vh;
+  position: relative;
+  padding-top: 8.8vh;
+  padding-left: 15vw;
+}
+#control {
+  text-align: center;
+}
+#view {
+  font-family: "Nunito", sans-serif;
+  font-size: 0.6em;
+  text-align: center;
+  font-weight: 500;
+}
+#text-input {
+  background-color: #facd89;
+  border: #facd89;
+  font-family: inherit;
 }

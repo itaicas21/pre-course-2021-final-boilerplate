@@ -40,6 +40,7 @@ async function main() {
     }
     // "Listening" for click on button
     document.addEventListener('click', async event => {
+        //
         if (event.target.id === 'add-button' && input.value.trim()!=="") {
             const task = input.value;
             //input field reset
@@ -78,6 +79,9 @@ async function main() {
             // תקשורת בסוף כדי למנוע באגים של לחיצה על כפתור שעוד לא נמחק אבל נמחק בפועל
             await setPersistent(API_KEY, savedList);
         }
+        if (event.target.classList.contains('todo-text')) {
+            
+        }
     });
 
     // Creating an add task function for code modularity
@@ -102,7 +106,7 @@ async function main() {
         addElement('todo-priority', priority, todoContainer, 'div');
         addElement('todo-created-at', formatDate, todoContainer, 'div');
         addElement('todo-text', task, todoContainer, 'div');
-        addElement('delete-button', 'Delete', todoContainer, 'button');
+        addElement('delete-button', 'Delete', todoContainer, 'img');
         // append task to list in view
         view.firstElementChild.appendChild(item);
         item.appendChild(todoContainer);
@@ -110,8 +114,9 @@ async function main() {
     //creating a function to modulate sections added to a task 
     function addElement(name, innerContent, parentDiv, element) {
         const todoDiv = document.createElement(element);
-        if (element === 'button') {
+        if (element ==='img') {
             todoDiv.id = name;
+            todoDiv.src='./assets/x icon 2.png'
         } else {
             todoDiv.classList.add(name);
         }

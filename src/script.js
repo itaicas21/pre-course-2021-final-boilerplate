@@ -30,14 +30,7 @@ async function main() {
     //
     let priorityList = null;
     //
-    if (data) {
-        savedList["my-todo"]=data ;
-        for (let task of data) {
-            addTask(task["text"], task["priority"], task["date"]);
-            counter++;
-        }
-        countDisplay(counter);
-    }
+    printPage(data);
     // "Listening" for click on button
     document.addEventListener('click', async event => {
         //
@@ -139,6 +132,7 @@ async function main() {
         let returnDate = '';
         for (let i = 0; i < date.length; i++) {
             if (date[i] === 'T') {
+                // returnDate += "<br>"; for V1
                 returnDate += " ";
             } else if (date[i] === '.') {
                 return returnDate;
@@ -178,5 +172,16 @@ async function main() {
     function addToSavedList(propertyName, propertyValue) {
         savedList["my-todo"][counter][propertyName] = propertyValue;
     }
+    function printPage(data) {
+        if (data) {
+            savedList["my-todo"]=data ;
+            for (let task of data) {
+                addTask(task["text"], task["priority"], task["date"]);
+                counter++;
+            }
+            countDisplay(counter);
+        }
+    }
+    
 } 
 main();

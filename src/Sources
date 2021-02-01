@@ -1,2 +1,29 @@
 <a href='https://pngtree.com/so/yellow-note-paper'>yellow note paper png from pngtree.com</a>
 <a href='https://pngtree.com/so/paper'>paper png from pngtree.com</a>
+
+CSS
+
+.todo-priority {
+  position: relative;
+  display: inline-block;
+  padding-right: 1em;
+  bottom: 3vh;
+  right: 7vh;
+}
+.todo-text::before {
+  content: "||   ";
+}
+.todo-text {
+  position: relative;
+  display: inline-block;
+  bottom: 2.5vh;
+  right: 9vw;
+}
+.todo-created-at {
+  display: inline-block;
+  position: relative;
+  padding-right: 1em;
+  font-size: 2.5vh;
+  bottom: 1vh;
+  right: 8vw;
+}

@@ -40,7 +40,7 @@ async function main() {
     }
     // "Listening" for click on button
     document.addEventListener('click', async event => {
-        if (event.target.id === 'add-button' && input.value !== "") {
+        if (event.target.id === 'add-button' && input.value.trim()!=="") {
             const task = input.value;
             //input field reset
             input.value = "";

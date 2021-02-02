@@ -24,9 +24,11 @@ li {
 #control {
   text-align: center;
 }
+#counter-text {
+}
 #counter-section {
   position: relative;
-  font-size: 5vh;
+  font-size: 4.5vh;
   right: 8vw;
 }
 #sort-button {

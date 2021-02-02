@@ -46,7 +46,7 @@ li {
   font-weight: 800;
   font-size: 3vh;
   height: 100%;
-  left: 60%;
+  left: 65%;
 }
 #text-input {
   size: 1;
@@ -55,14 +55,15 @@ li {
   background-color: inherit;
   border: 5%, solid, black;
   font-family: inherit;
-  right: 41%;
-  width: 15%;
+  font-size: 1em;
+  right: 36%;
+  width: 25%;
   /* overflow-wrap: break-word; HOW DO YOU WRAP THE TEXT INPUT */
 }
 #priority-selector {
   position: absolute;
   height: 100%;
-  right: 60%;
+  right: 65%;
 }
 #add-section {
   position: relative;

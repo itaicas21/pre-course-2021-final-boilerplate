@@ -23,6 +23,7 @@ async function main() {
     const count = document.querySelector('#counter');
     const countText = document.querySelector('#counter-text');
     let counter = 0;
+    let selected = null;
     //save properties in my todo property
     let savedList = {
         "my-todo": []
@@ -48,7 +49,6 @@ async function main() {
             countDisplay(counter);
             //updates priority list every added task
             priorityList = document.querySelectorAll('.todo-priority');
-            console.log(priorityList);
             //Remember to add localStorage option
             //
             await setPersistent(API_KEY, savedList);
@@ -62,18 +62,34 @@ async function main() {
             const listItem = event.target.closest('li');
             //
             savedList["my-todo"].splice(listItem.id, 1);
-            
+        
             listItem.remove();
             //
             priorityList = document.querySelectorAll('.todo-priority');
             counter--;
             countDisplay(counter);
-            console.log(priorityList);
             // תקשורת בסוף כדי למנוע באגים של לחיצה על כפתור שעוד לא נמחק אבל נמחק בפועל
             await setPersistent(API_KEY, savedList);
         }
+        //edit a thing
         if (event.target.classList.contains('todo-text')) {
-            
+            selected = event.target;
+            selected.contentEditable = true;
+        } else if (selected!==null){
+            selected.contentEditable = false;
+        }
+        if ((selected !== null)) {
+            if (selected.contentEditable === 'false') {
+                const index = selected.closest('li').id;
+                const updatedDate = new Date();
+                //double check
+                if (index) {
+                    addToSavedList('text', selected.innerText, index);
+                    addToSavedList('date', updatedDate.toJSON(), index);
+                    await setPersistent(API_KEY, savedList);
+                    selected = null;
+                }
+            }
         }
     });
 
@@ -89,6 +105,8 @@ async function main() {
              formatDate = new Date(givenDate);
         } else {
             formatDate = new Date();
+            //
+            formatDate.setHours(formatDate.getHours() + 2);
         }
         // create task container
         const todoContainer = document.createElement('div');
@@ -132,8 +150,8 @@ async function main() {
         let returnDate = '';
         for (let i = 0; i < date.length; i++) {
             if (date[i] === 'T') {
-                // returnDate += "<br>"; for V1
-                returnDate += " ";
+                returnDate += "<br>"; //for V1
+                // returnDate += " "; for V2
             } else if (date[i] === '.') {
                 return returnDate;
             } else returnDate += date[i];
@@ -169,8 +187,12 @@ async function main() {
         }
     }
     //
-    function addToSavedList(propertyName, propertyValue) {
-        savedList["my-todo"][counter][propertyName] = propertyValue;
+    function addToSavedList(propertyName, propertyValue, index) {
+        if (index) {
+            savedList["my-todo"][index][propertyName] = propertyValue; 
+        } else {
+            savedList["my-todo"][counter][propertyName] = propertyValue;  
+    }
     }
     function printPage(data) {
         if (data) {

@@ -130,3 +130,28 @@ button {
 #add-button {
   cursor: pointer;
 }
+.fa:hover {
+  opacity: 0.7;
+}
+.fa-instagram {
+  color: paleturquoise;
+}
+.fa-linkedin {
+  color: #007bb5;
+  border-radius: 60%;
+  font-size: 0.5vh;
+}
+.fa-github {
+  color: black;
+}
+.fa {
+  font-size: 50px;
+  width: 15vw;
+  text-align: center;
+  text-decoration: none;
+}
+#links {
+  position: relative;
+  max-width: fit-content;
+  margin: auto;
+}

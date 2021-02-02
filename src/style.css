@@ -34,8 +34,8 @@ li {
   background-color: inherit;
   border: none;
   font-weight: 800;
-  right: -40%;
-  bottom: 20%;
+  left: 100%;
+  bottom: 17%;
   font-size: 3vh;
 }
 #add-button {
@@ -45,7 +45,7 @@ li {
   font-weight: 800;
   font-size: 3vh;
   height: 100%;
-  right: 20%;
+  left: 60%;
 }
 #text-input {
   size: 1;
@@ -54,18 +54,19 @@ li {
   background-color: inherit;
   border: 5%, solid, black;
   font-family: inherit;
-  width: 20%;
+  right: 41%;
+  width: 15%;
   /* overflow-wrap: break-word; HOW DO YOU WRAP THE TEXT INPUT */
 }
 #priority-selector {
   position: absolute;
   height: 100%;
-  left: 30%;
+  right: 60%;
 }
 #add-section {
   position: relative;
   height: 5vh;
-  top: 1.5vh;
+  top: 3vh;
 }
 #view {
   text-align: center;
@@ -74,7 +75,7 @@ li {
   left: 7vw;
   font-size: 0.6em;
   font-weight: 500;
-  top: 3.4vh;
+  top: 2.5vh;
 }
 
 #delete-button {
@@ -87,9 +88,8 @@ li {
 .todo-priority {
   position: relative;
   display: inline-block;
-  padding-right: 1em;
+  right: 10vw;
   bottom: 3vh;
-  right: 7vh;
 }
 .todo-text {
   position: relative;

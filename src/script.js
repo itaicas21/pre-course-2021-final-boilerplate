@@ -49,8 +49,7 @@ async function main() {
             countDisplay(counter);
             //updates priority list every added task
             priorityList = document.querySelectorAll('.todo-priority');
-            //Remember to add localStorage option
-            //
+            
             await setPersistent(API_KEY, savedList);
         }
         if (event.target.id === 'sort-button') {
@@ -58,7 +57,7 @@ async function main() {
             sortPriorityList(priorityList);
         }
         if (event.target.id === 'delete-button') {
-            // FIX THIS *** NOT DELETING SPECIFIED PLACE,DELETES LAST IN DATABASE INSTEAD
+            
             const listItem = event.target.closest('li');
             //
             savedList["my-todo"].splice(listItem.id, 1);
@@ -71,7 +70,7 @@ async function main() {
             // תקשורת בסוף כדי למנוע באגים של לחיצה על כפתור שעוד לא נמחק אבל נמחק בפועל
             await setPersistent(API_KEY, savedList);
         }
-        //edit a thing
+        //edit a task
         if (event.target.classList.contains('todo-text')) {
             selected = event.target;
             selected.contentEditable = true;
@@ -80,8 +79,12 @@ async function main() {
         }
         if ((selected !== null)) {
             if (selected.contentEditable === 'false') {
+               //
+                // const listObject = selected.closest('li');
                 const index = selected.closest('li').id;
-                const updatedDate = new Date();
+                let updatedDate = new Date();
+                updatedDate.setHours(updatedDate.getHours() + 2);
+                
                 //double check
                 if (index) {
                     addToSavedList('text', selected.innerText, index);

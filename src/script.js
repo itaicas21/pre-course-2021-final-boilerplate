@@ -100,7 +100,7 @@ async function main() {
     function addTask(task, priority,givenDate) {
         //list item to append to ul
         const item = document.createElement('li');
-        //
+        //BUG SHYIT
         item.id = counter;
         //formatDate is declared as let to reduce unnecessary code variables and lines. RETURN HERE AND MODULATE
         let formatDate;

@@ -1,23 +1,7 @@
 async function main() {
 
-    const API_KEY = '601684a00ba5ca5799d18446'; // Assign this variable to your JSONBIN.io API key if you choose to use it.
-    
-    // Gets data from persistent storage by the given key and returns it
-    async function getPersistent(key) {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${key}/latest`);
-        const data = await response.json();
-        return data.record["my-todo"];
-    }
-
-    // Saves the given data into persistent storage by the given key.
-    // Returns 'true' on success.
-    async function setPersistent(key, savedList) {
-        await fetch(`https://api.jsonbin.io/v3/b/${key}`, { method: "put", headers: { "Content-Type": "application/json",}, body: JSON.stringify(savedList)})
-      }
-    
     // Initalizing variables for later use
     const data = await getPersistent(API_KEY);
-    const control = document.querySelector('#control');
     const view = document.querySelector('#view');
     const input = document.querySelector('#text-input');
     const count = document.querySelector('#counter');
@@ -33,8 +17,9 @@ async function main() {
     //
     printPage(data);
     // "Listening" for click on button
+    //todo specific event listners per element LATER
     document.addEventListener('click', async event => {
-        //
+        
         if (event.target.id === 'add-button' && input.value.trim()!=="") {
             const task = input.value;
             //input field reset
@@ -57,17 +42,17 @@ async function main() {
             sortPriorityList(priorityList);
         }
         if (event.target.id === 'delete-button') {
-            
+            // todo update ids in array with for loop and index number 
             const listItem = event.target.closest('li');
             //
             savedList["my-todo"].splice(listItem.id, 1);
-        
+            //
             listItem.remove();
             //
             priorityList = document.querySelectorAll('.todo-priority');
             counter--;
             countDisplay(counter);
-            // תקשורת בסוף כדי למנוע באגים של לחיצה על כפתור שעוד לא נמחק אבל נמחק בפועל
+            //
             await setPersistent(API_KEY, savedList);
         }
         //edit a task
@@ -77,30 +62,28 @@ async function main() {
         } else if (selected!==null){
             selected.contentEditable = false;
         }
-        if ((selected !== null)) {
-            if (selected.contentEditable === 'false') {
+        //todo simplify control flow and combine ifs with and
+            if (selected !== null&&selected.contentEditable === 'false') {
                //
                 // const listObject = selected.closest('li');
                 const index = selected.closest('li').id;
                 let updatedDate = new Date();
                 updatedDate.setHours(updatedDate.getHours() + 2);
+
+                addToSavedList('text', selected.innerText, index);
+                addToSavedList('date', updatedDate.toJSON(), index);
+                await setPersistent(API_KEY, savedList);
+                selected = null;
                 
-                //double check
-                if (index) {
-                    addToSavedList('text', selected.innerText, index);
-                    addToSavedList('date', updatedDate.toJSON(), index);
-                    await setPersistent(API_KEY, savedList);
-                    selected = null;
-                }
             }
-        }
+        
     });
 
     // Creating an add task function for code modularity
     function addTask(task, priority,givenDate) {
         //list item to append to ul
         const item = document.createElement('li');
-        //BUG SHYIT
+        //BUG - Id needs to be unique
         item.id = counter;
         //formatDate is declared as let to reduce unnecessary code variables and lines. RETURN HERE AND MODULATE
         let formatDate;
@@ -144,8 +127,8 @@ async function main() {
         } else if (name === 'todo-priority') {
             addToSavedList('priority', innerContent);
         }
-
-        todoDiv.innerHTML = `${innerContent}`;
+        //todo NEVER USE innerText UNLESS NECCESSARY
+        todoDiv.innerText = `${innerContent}`;
         parentDiv.appendChild(todoDiv);
     }
     // function to convert JSON date to requested format
@@ -153,8 +136,9 @@ async function main() {
         let returnDate = '';
         for (let i = 0; i < date.length; i++) {
             if (date[i] === 'T') {
-                returnDate += "<br>"; //for V1
-                // returnDate += " "; for V2
+                // todo fix long date display
+                // returnDate += "\n"; //for V1
+                returnDate += " "; //for V2
             } else if (date[i] === '.') {
                 return returnDate;
             } else returnDate += date[i];
@@ -164,24 +148,24 @@ async function main() {
     //simple switch case for counter
     function countDisplay(counter) {
         switch (counter) {
-            case 0: count.innerHTML = 0;
-                countText.innerHTML = 'Zen Mode';
+            case 0: count.innerText = 0;
+                countText.innerText = 'Zen Mode';
                 break;
-            case 1: count.innerHTML = counter;
-            countText.innerHTML= `more headache...`;
+            case 1: count.innerText = counter;
+            countText.innerText= `more headache...`;
                 break;
             default: {
-                count.innerHTML = counter;
-                countText.innerHTML= `more headaches...`;
+                count.innerText = counter;
+                countText.innerText= `more headaches...`;
             }
         }
     }
     // sorts a priority list from 1-5
     function sortPriorityList(list) {
-        if (list !== null && list !== undefined) {
+        if (list != null) {
             for (let i = 5; i > 0; i--) {
                 list.forEach(item => {
-                    if (item.innerHTML == i) {
+                    if (Number(item.innerText) == i) {
                         view.firstElementChild.appendChild(item.closest('li'));
                     }
                 });

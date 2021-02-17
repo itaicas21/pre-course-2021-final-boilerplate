@@ -1,11 +1,11 @@
-async function main() {
 
+    // todo Understand usage of utils file
     // Initalizing variables for later use
-    const data = await getPersistent(API_KEY);
     const view = document.querySelector('#view');
     const input = document.querySelector('#text-input');
     const count = document.querySelector('#counter');
     const countText = document.querySelector('#counter-text');
+    
     let counter = 0;
     let selected = null;
     //save properties in my todo property
@@ -14,11 +14,13 @@ async function main() {
     }
     //
     let priorityList = null;
-    //
-    printPage(data);
+    //Printing page using promises
+    getPersistent(API_KEY).then(data => {
+        printPage(data.record['my-todo']);
+    });
     // "Listening" for click on button
     //todo specific event listners per element LATER
-    document.addEventListener('click', async event => {
+    document.addEventListener('click', event => {
         
         if (event.target.id === 'add-button' && input.value.trim()!=="") {
             const task = input.value;
@@ -35,7 +37,7 @@ async function main() {
             //updates priority list every added task
             priorityList = document.querySelectorAll('.todo-priority');
             
-            await setPersistent(API_KEY, savedList);
+            setPersistent(API_KEY, savedList);
         }
         if (event.target.id === 'sort-button') {
             priorityList = document.querySelectorAll('.todo-priority');
@@ -53,7 +55,7 @@ async function main() {
             counter--;
             countDisplay(counter);
             //
-            await setPersistent(API_KEY, savedList);
+            setPersistent(API_KEY, savedList);
         }
         //edit a task
         if (event.target.classList.contains('todo-text')) {
@@ -72,7 +74,7 @@ async function main() {
 
                 addToSavedList('text', selected.innerText, index);
                 addToSavedList('date', updatedDate.toJSON(), index);
-                await setPersistent(API_KEY, savedList);
+                setPersistent(API_KEY, savedList);
                 selected = null;
                 
             }
@@ -192,5 +194,3 @@ async function main() {
         }
     }
     
-} 
-main();

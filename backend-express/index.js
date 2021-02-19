@@ -18,13 +18,12 @@ app.get('/b', (req, res) => {
 
 app.get(`/b/:id`, (req, res) => {
     const { id } = req.params;
-    try {
-    const binContent = fs.readFileSync(`./b/${id}`);
-    res.send(binContent);
+    if(fs.existsSync(`./b/${id}`)){
+        const binContent = fs.readFileSync(`./b/${id}`);
+        res.send(binContent);
     }
-    catch {
         res.status(422).send({ message: "Invalid Record ID" });
-    }
+    
 })
 //todo errors
 
